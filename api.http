@@ -21,11 +21,12 @@ Content-Type: application/json
     "Crime"
   ]
 }
-
+### Borrar una pelicula
+DELETE http://localhost:1234/movies/c906673b-3948-4402-ac7f-73ac3a9e3105
 ### Actualizar una pelicula
 PATCH http://localhost:1234/movies/dcdd0fad-a94c-4810-8acc-5f108d3b18c3
 Content-Type: application/json
 
 {
-  "ventana": "actual"
+  "year" : 1994
 }

@@ -1,4 +1,4 @@
-const zod = require('zod')
+import zod from 'zod'
 const movieSchema = zod.object({
     title: zod.string({
         required_error: 'Title is required',
@@ -26,15 +26,10 @@ const movieSchema = zod.object({
     rate: zod.number().int().min(0).max(10).default(5) // .optional() => number | undefined
 })
 
-function validateMovie(object) {
+export function validateMovie(object) {
     return movieSchema.safeParse(object)
 }
 
-function validatePartialMovie(object) {
+export function validatePartialMovie(object) {
     return movieSchema.partial().safeParse(object) // .partial() => todos los parametros son opcionales
-}
-
-module.exports = {
-    validateMovie,
-    validatePartialMovie
 }
