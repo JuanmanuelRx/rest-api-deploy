@@ -1,5 +1,5 @@
 {
-  "name": "rest-api-deploy",
+  "name": "node-class-5",
   "version": "1.0.0",
   "description": "logs deployment",
   "main": "app.js",
@@ -15,7 +15,9 @@
     "crypto": "^1.0.1",
     "express": "4.21.0",
     "mongodb": "^6.9.0",
-    "rest-api-deploy": "file:",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.11.3",
+    "node-class-5": "file:",
     "zod": "^3.23.8"
   }
 }
