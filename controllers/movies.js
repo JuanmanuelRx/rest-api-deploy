@@ -1,5 +1,5 @@
-import { validateMovie, validatePartialMovie } from '../schemas/movies.js'
-import { MovieModel } from "../models/movies.js";
+import { MovieModel } from "../models/mongodb/movies.js";
+import { validateMovie, validatePartialMovie } from '../schemas/movies.js';
 export class MovieController {
     static async getAll(req, res) {
         const { genre } = req.query;
