@@ -1,13 +1,14 @@
 import mysql from 'mysql2/promise'
 
-const config = { 
+const DEFAULT_CONFIG = { 
     host: 'localhost',
     user: 'root',
     port: 3307,
     password: 'curso_123',  // replace with your actual MySQL password
     database:'moviesdb'
 };
-const connection = await mysql.createConnection(config);
+const connectionString = process.env.DATABASE_URL ?? DEFAULT_CONFIG
+const connection = await mysql.createConnection(connectionString);
 
 // Modelo para interactuar con la base de datos MySQL
 export class MovieModel {
