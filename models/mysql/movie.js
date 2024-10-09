@@ -13,7 +13,7 @@ const connection = await mysql.createConnection(config);
 export class MovieModel {
     static async getAll ({ genre }) {
         const [ movies ] = await connection.query(
-            'select BIN_TO_UUID(id) as id, title, _year, director, duration, poster, rate from movie');
+            'select BIN_TO_UUID(id) as id, title, year, director, duration, poster, rate from movie');
         if(genre) {
             const loweCaseGenres = genre.toLowerCase();
             const [ genres ] = await connection.query(
@@ -31,32 +31,31 @@ export class MovieModel {
     }
     static async getById ({ id }) {
         const [ movies ] = await connection.query(
-            'select BIN_TO_UUID(id) as id, title, _year, director, duration, poster, rate from movie where id = UUID_TO_BIN(?)', [ id ]);
+            'select BIN_TO_UUID(id) as id, title, year, director, duration, poster, rate from movie where id = UUID_TO_BIN(?);', [ id ]);
         if (movies.length === 0) return null
         return movies[0]
     }
     static async create ({ input }) {
         const {
             title,
-            _year,
+            year,
             director,
             duration,
             poster,
             rate
         } = input;
-        const [uuidResult] = await connection.query('SELECT UUID() AS uuid')
+        const [uuidResult] = await connection.query('SELECT UUID() AS uuid;')
         const [{ uuid }] = uuidResult
         try {
-            await connection.query(`insert into movie (id, title, _year, director, duration, poster, rate) 
-            VALUES (UUID_TO_BIN(${uuid}),?,?,?,?,?,?)`, [title, _year, director, duration, poster, rate])
+            await connection.query(`insert into movie (id, title, year, director, duration, poster, rate) 
+            VALUES (UUID_TO_BIN("${uuid}"),?,?,?,?,?,?);`, [title, year, director, duration, poster, rate])
         } catch (error) {
             console.error(error)
-            sendLog(error)
             throw new Error('Error al crear el movie')
         }
         const [movies] = await connection.query(
-            `select BIN_TO_UUID(id) as id, title, _year, director, duration, poster, rate 
-            from movie where id = UUID_TO_BIN(?)`, [uuid]);
+            `select BIN_TO_UUID(id) as id, title, year, director, duration, poster, rate 
+            from movie where id = UUID_TO_BIN(?);`, [uuid]);
         return movies[0]
     }
     static async delete ({ id }) {
